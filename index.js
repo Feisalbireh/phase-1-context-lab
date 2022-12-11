@@ -1,5 +1,66 @@
 /* Your Code Here */
 
+let createEmployeeRecord = function (array) {
+  return {
+    firstName: array[0],
+    familyName: array[1],
+    title: array[2],
+    payPerHour: array[3],
+    timeInEvents: [],
+    timeOutEvents: [],
+  };
+};
+let createEmployeeRecords = function (array) {
+  const employee = array.map(createEmployeeRecord);
+  return employee;
+};
+let createTimeInEvent = function (type) {
+  const [Date, Hour] = type.split(" ");
+
+  this.timeInEvents.push({
+    type: "TimeIn",
+    hour: parseInt(Hour),
+    date: Date,
+  });
+
+  return this;
+};
+let createTimeOutEvent = function (type) {
+  const [Date, Hour] = type.split(" ");
+
+  this.timeOutEvents.push({
+    type: "TimeOut",
+    hour: parseInt(Hour),
+    date: Date,
+  });
+
+  return this;
+};
+let hoursWorkedOnDate = function (typeDate) {
+  let timeOut = this.timeOutEvents.find((e) => {
+    return e.date === typeDate;
+  });
+  let timeIn = this.timeInEvents.find((e) => {
+    return e.date === typeDate;
+  });
+  return (parseInt(timeOut.hour) - parseInt(timeIn.hour)) / 100;
+};
+let wagesEarnedOnDate = function (typeDate) {
+  return hoursWorkedOnDate.call(this, typeDate) * parseInt(this.payPerHour);
+};
+let findEmployeeByFirstName = function(srcArray, firstName) {
+    return srcArray.find(function(rec){
+      return rec.firstName === firstName
+    })
+  }
+let calculatePayroll = function (empArray) {
+  return empArray.reduce(function (memo, record) {
+    return memo + allWagesFor.call(record);
+  }, 0);
+};
+
+
+
 /*
  We're giving you this function. Take a look at it, you might see some usage
  that's new and different. That's because we're avoiding a well-known, but
